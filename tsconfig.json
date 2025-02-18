@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "dist", // Folder where compiled files will be stored
+    "rootDir": "src", // Source code folder
+    "declaration": true, // Generate type definition files (.d.ts)
+    "module": "CommonJS",
+    "target": "ES6",
+    "strict": true,
+    "esModuleInterop": true, // Recommend enabling interoperability between CommonJS and ES Modules
+    "skipLibCheck": true, // Recommend skipping type checking of declaration files
+    "forceConsistentCasingInFileNames": true // Recommend ensuring consistent casing in file names
+  },
+  "include": ["src/**/*"], // Recommend including all files in the src directory
+  "exclude": ["node_modules", "dist"] // Recommend excluding node_modules and dist directories
+}
