@@ -55,6 +55,7 @@ async function uploadCollection(
     throw new Error("Invalid image type");
   }
 
+  let totalTokenAmount = 0;
   for (const token of collection.tokens) {
     const tokenImageType = getImageTypeFromUrl(token.imageUrl);
     if (!tokenImageType) {
@@ -64,6 +65,13 @@ async function uploadCollection(
     if (!(await isImageSizeUnder5MB(token.imageUrl))) {
       throw new Error("Token image size is too large");
     }
+
+    totalTokenAmount += token.amount;
+  }
+
+  // Validate token amount
+  if (totalTokenAmount !== collection.totalSupply) {
+    throw new Error("Total token amount does not match the collection supply");
   }
 
   let newCollection = null;
