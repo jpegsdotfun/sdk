@@ -8,7 +8,7 @@ export class Client {
   private keypair: Keypair;
   private hostUrl: string;
   private programId: string;
-  constructor(keypair: Keypair, isDevnet: boolean) {
+  constructor(keypair: Keypair, isDevnet: boolean = false) {
     this.keypair = keypair;
     this.publicKey = this.keypair.publicKey.toString();
     this.hostUrl = isDevnet ? "https://devnet.jpegs.fun" : "https://jpegs.fun";
