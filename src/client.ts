@@ -1,6 +1,11 @@
 import { Keypair } from "@solana/web3.js";
 import * as nacl from "tweetnacl";
-import { UploadCollectionParams, User } from "./types";
+import {
+  NftBondingCurve,
+  TxDocument,
+  UploadCollectionParams,
+  User,
+} from "./types";
 
 export class Client {
   private accessToken: string = "";
@@ -82,7 +87,7 @@ export class Client {
   async requestUploadCollection(
     accessToken: string,
     collectionData: UploadCollectionParams
-  ) {
+  ): Promise<{ data: NftBondingCurve; message?: string }> {
     const res = await fetch(`${this.hostUrl}/api/collections`, {
       method: "POST",
       body: JSON.stringify(collectionData),
@@ -103,7 +108,7 @@ export class Client {
     collectionAddress: string,
     mintMode: boolean,
     tokenAmount: number
-  ) {
+  ): Promise<string[]> {
     const res = await fetch(`${this.hostUrl}/api/tx/create-collection`, {
       method: "POST",
       body: JSON.stringify({ collectionAddress, mintMode, tokenAmount }),
@@ -130,7 +135,7 @@ export class Client {
       txUnsigned: string;
       txSignedClient: string;
     }[]
-  ) {
+  ): Promise<TxDocument[]> {
     const res = await fetch(`${this.hostUrl}/api/tx`, {
       method: "POST",
       body: JSON.stringify({ txs }),
@@ -143,6 +148,10 @@ export class Client {
     if (res.status !== 200) {
       throw new Error(res.statusText);
     }
-    return res.json();
+    const result = await res.json();
+    if (!result.data) {
+      throw new Error(result.message);
+    }
+    return result.data;
   }
 }

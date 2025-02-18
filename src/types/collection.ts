@@ -55,3 +55,24 @@ export interface TokenImage {
   amount: number;
   attributes: Attributes[];
 }
+
+export interface NftBondingCurve {
+  name: string;
+  symbol: string;
+  imageUrl: string;
+  imageType: string;
+  description: string;
+  topic?: string;
+  telegramLink?: string;
+  tiktokLink?: string;
+  discordLink?: string;
+  twitterLink?: string;
+  websiteLink?: string;
+  tokens: TokenImage[];
+  totalSupply: CollectionTotalSupply;
+  royaltiesBps: 0 | 100;
+  bondingCurve: string;
+  address: string;
+  creator: string;
+  tokenMode: "manual";
+}

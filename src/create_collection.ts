@@ -162,5 +162,5 @@ async function uploadCollection(
     throw "Error uploading collection data:" + error;
   }
 
-  return newCollection;
+  return newCollection.data;
 }

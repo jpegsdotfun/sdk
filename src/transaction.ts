@@ -1,5 +1,6 @@
 import { Keypair, VersionedTransaction } from "@solana/web3.js";
 import { Client } from "./client";
+import { TxDocument } from "./types";
 export async function signAndRequestSendTx(
   client: Client,
   signerKeypair: Keypair,
@@ -38,7 +39,7 @@ export async function signAndRequestSendCreateCollectionAndInitialBuyTx(
   signerKeypair: Keypair,
   txSerializeds: string[],
   mintKeypair: Keypair
-) {
+): Promise<TxDocument[]> {
   const txs = txSerializeds.map((txSerialized: string) =>
     VersionedTransaction.deserialize(Buffer.from(txSerialized, "base64"))
   );
